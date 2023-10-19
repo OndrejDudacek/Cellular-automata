@@ -4,9 +4,10 @@ import time
 
 BACKGROUND = (40,40,40)
 ALIVE = (255,255,255)
-CELL_SIZE = 5
+CELL_SIZE = 7
 GRID_WIDTH = 1100
 GRID_HEIGHT = 800
+DELAY = 0.1
 
 def update(currentGen):
     nextGen = np.zeros((GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
@@ -55,20 +56,48 @@ def main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     running = not running
+
+                if event.key == pygame.K_DOWN:
+                    DELAY = DELAY * 10
+                if event.key == pygame.K_UP:
+                    DELAY = DELAY / 10
+
                 if event.key == pygame.K_c:
                     currentGen = np.zeros((GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
                     draw(currentGen, screen)
 
+                if event.key == pygame.K_r:
+                    currentGen = np.random.randint(2, size=(GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
+                    draw(currentGen, screen)
+
+ #               if event.key == pygame.K_s:
+ #                   np.save('my_array.npy', currentGen)
+
+                if event.key == pygame.K_1:
+                    currentGen = np.load('examples/The R-pentomino.npy')
+                    draw(currentGen, screen)
+                if event.key == pygame.K_2:
+                    currentGen = np.load('examples/Gosper glider gun.npy')
+                    draw(currentGen, screen)
+                if event.key == pygame.K_3:
+                    currentGen = np.load('examples/example.npy')
+                    draw(currentGen, screen)
+                
+
             if pygame.mouse.get_pressed()[0]:
                 pos = pygame.mouse.get_pos()
-                currentGen[pos[1] // CELL_SIZE, pos[0] // CELL_SIZE] = 1 
+
+                row = pos[1] // CELL_SIZE
+                col = pos[0] // CELL_SIZE
+
+                currentGen[row, col] = 1 - currentGen[row, col]
                 draw(currentGen, screen)
 
         if running:
             currentGen = update(currentGen)
             draw(currentGen, screen)
             pygame.display.update()
-            #time.sleep(0.0001)
+            time.sleep(DELAY)
 
 if __name__ == "__main__":
     main()
