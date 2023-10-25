@@ -7,7 +7,6 @@ ALIVE = (255,255,255)
 CELL_SIZE = 7
 GRID_WIDTH = 1100
 GRID_HEIGHT = 800
-DELAY = 0.1
 
 def update(currentGen):
     nextGen = np.zeros((GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
@@ -37,6 +36,7 @@ def draw(currentGen, screen):
     pygame.display.update()
 
 def main():
+    delay = 0.01
     pygame.init()
 
     screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
@@ -58,13 +58,16 @@ def main():
                     running = not running
 
                 if event.key == pygame.K_DOWN:
-                    DELAY = DELAY * 10
+                    delay = delay / 10
+                    print("down")
                 if event.key == pygame.K_UP:
-                    DELAY = DELAY / 10
+                    delay = delay * 10
+                    print("up")
 
                 if event.key == pygame.K_c:
                     currentGen = np.zeros((GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
                     draw(currentGen, screen)
+                    delay = 0.01
 
                 if event.key == pygame.K_r:
                     currentGen = np.random.randint(2, size=(GRID_HEIGHT // CELL_SIZE, GRID_WIDTH // CELL_SIZE))
@@ -97,7 +100,7 @@ def main():
             currentGen = update(currentGen)
             draw(currentGen, screen)
             pygame.display.update()
-            time.sleep(DELAY)
+            time.sleep(delay)
 
 if __name__ == "__main__":
     main()
