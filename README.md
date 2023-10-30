@@ -1,9 +1,4 @@
 # Cellular-automata
-
-## Content
-### What are cellular automata
-#### Game of Life
-
 ## What are cellular automata
 **Cellular automata** (singular = cellular automaton) are algorithms that evolve based on some rules. 
 
@@ -18,5 +13,6 @@ One "tick" when changes are applied is called **generation**. A new generation i
 **A rule** can be something like this if the dead cell has 2 o more live neighbours, it becomes alive. 
 
 When we are looking at rules we must know what **neighborhood** is used. In 2D grids, there are two main neighborhoods. **Moore's neighborhood** has nine cells in total with the main cell in the middle. The second one is called **von Neumann's neighborhood**, there are six cells (the main is in the middle again). This neighborhood consists of one cell above the main one, one down from the main cell, and one left and right. There is also an extended von Neumann's neighborhood it has the same cells as the original, but there is added one cell in each direction.
+
 ### Game of Life
 My instance of The Game of Life. Original Game of Life comes from British mathematician John Horton Conway from 1970.
