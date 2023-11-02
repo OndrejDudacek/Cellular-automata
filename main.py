@@ -25,13 +25,10 @@ def main():
     while True:
         screen.fill(BACKGROUND)
 
-        if gameoflife_running:
-            gameoflife_running = gameoflife.run()
-        else:
-            if GameOfLife_btn.draw(screen):
-                gameoflife_running = True
-            if ElementaryCa_btn.draw(screen):
-                print("Elementary CA")
+        if GameOfLife_btn.draw(screen):
+            gameoflife.run()
+        if ElementaryCa_btn.draw(screen):
+            print("Elementary CA")
 
         if exit_btn.draw(screen):
             pygame.quit()

@@ -32,17 +32,18 @@ class GameOfLife:
         for row, col in np.ndindex(currentGen.shape):
                 if currentGen[row, col] == 1:
                     rect = pygame.Rect(col *self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
-                    pygame.draw.rect(self.screen, self.alive, rect)
+                    pygame.draw.rect(self.screen, self.ALIVE, rect)
                 else:
                     rect = pygame.Rect(col * self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
                     pygame.draw.rect(self.screen, self.BACKGROUND, rect)
         pygame.display.update()
 
     def run(self):
+        pygame.init()
         delay = 0.01
         currentGen = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
 
-        self.draw(currentGen, self.screen)
+        self.draw(currentGen)
         pygame.display.set_caption("Game of Life")
 
         running = False
@@ -67,25 +68,25 @@ class GameOfLife:
 
                     if event.key == pygame.K_c:
                         currentGen = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
-                        self.draw(currentGen, self.screen)
+                        self.draw(currentGen)
                         delay = 0.01
 
                     if event.key == pygame.K_r:
                         currentGen = np.random.randint(2, size=(self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
-                        self.draw(currentGen, self.screen)
+                        self.draw(currentGen)
 
 #                   if event.key == pygame.K_s:
 #                       np.save('my_array.npy', currentGen)
 
                     if event.key == pygame.K_1:
                         currentGen = np.load('examples/The R-pentomino.npy')
-                        self.draw(currentGen, self.screen)
+                        self.draw(currentGen)
                     if event.key == pygame.K_2:
                         currentGen = np.load('examples/Gosper glider gun.npy')
-                        self.draw(currentGen, self.screen)
+                        self.draw(currentGen)
                     if event.key == pygame.K_3:
                         currentGen = np.load('examples/example.npy')
-                        self.draw(currentGen, self.screen)
+                        self.draw(currentGen)
                     
 
                 if pygame.mouse.get_pressed()[0]:
@@ -95,11 +96,11 @@ class GameOfLife:
                     col = pos[0] // self.CELL_SIZE
 
                     currentGen[row, col] = 1 - currentGen[row, col]
-                    self.draw(currentGen, self.screen)
+                    self.draw(currentGen)
 
             if running:
                 currentGen = self.update(currentGen)
-                self.draw(currentGen, self.screen)
+                self.draw(currentGen)
                 pygame.display.update()
                 time.sleep(delay)
 
