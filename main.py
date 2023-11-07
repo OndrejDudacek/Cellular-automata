@@ -12,18 +12,18 @@ CELL_SIZE = 7
 def main():
     pygame.init()
     screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
-    pygame.display.set_caption("Cellular automata")
 
     gameoflife = GameOfLife(ALIVE, BACKGROUND, GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, screen)
 
-    GameOfLife_btn = Button(550, 370, "images/gameoflife.png")
-    ElementaryCa_btn = Button(550, 520,"images/elementaryCA.png")
-    exit_btn = Button(550, 670,"images/exit.png")
+    GameOfLife_btn = Button(550, 370, "images/gameoflife.png", "images/gameoflife_hover.png")
+    ElementaryCa_btn = Button(550, 520,"images/elementaryCA.png", "images/elementaryCA_hover.png")
+    exit_btn = Button(550, 670,"images/exit.png", ("images/exit_hover.png"))
 
     gameoflife_running = False
 
     while True:
         screen.fill(BACKGROUND)
+        pygame.display.set_caption("Cellular automata")
 
         if GameOfLife_btn.draw(screen):
             gameoflife.run()
