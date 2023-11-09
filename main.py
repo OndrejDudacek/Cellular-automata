@@ -1,6 +1,7 @@
 import pygame
 import time
 from GameOfLife import GameOfLife
+from ElementaryCA import ElementaryCA
 from Buttons import Button
 
 ALIVE = (255,255,255)
@@ -14,12 +15,12 @@ def main():
     screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
 
     gameoflife = GameOfLife(ALIVE, BACKGROUND, GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, screen)
+    elementaryca = ElementaryCA(ALIVE, BACKGROUND, GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, screen)
 
     GameOfLife_btn = Button(550, 370, "images/gameoflife.png", "images/gameoflife_hover.png")
     ElementaryCa_btn = Button(550, 520,"images/elementaryCA.png", "images/elementaryCA_hover.png")
     exit_btn = Button(550, 670,"images/exit.png", ("images/exit_hover.png"))
 
-    gameoflife_running = False
 
     while True:
         screen.fill(BACKGROUND)
@@ -28,7 +29,7 @@ def main():
         if GameOfLife_btn.draw(screen):
             gameoflife.run()
         if ElementaryCa_btn.draw(screen):
-            print("Elementary CA")
+            elementaryca.run()
 
         if exit_btn.draw(screen):
             pygame.quit()

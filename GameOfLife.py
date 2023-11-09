@@ -30,11 +30,10 @@ class GameOfLife:
 
     def draw(self, currentGen):
         for row, col in np.ndindex(currentGen.shape):
+                rect = pygame.Rect(col *self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
                 if currentGen[row, col] == 1:
-                    rect = pygame.Rect(col *self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
                     pygame.draw.rect(self.screen, self.ALIVE, rect)
                 else:
-                    rect = pygame.Rect(col * self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
                     pygame.draw.rect(self.screen, self.BACKGROUND, rect)
         pygame.display.update()
 
@@ -43,7 +42,9 @@ class GameOfLife:
         delay = 0.01
         currentGen = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
 
+        self.screen.fill(self.BACKGROUND)
         self.draw(currentGen)
+        
         pygame.display.set_caption("Game of Life")
 
         running = False
@@ -61,10 +62,10 @@ class GameOfLife:
                     if event.key == pygame.K_SPACE:
                         running = not running
 
-                    if event.key == pygame.K_DOWN:
-                        delay = delay / 10
-                    if event.key == pygame.K_UP:
-                        delay = delay * 10
+                    if event.key == pygame.K_DOWN and delay > 0.00125:
+                        delay = delay / 2
+                    if event.key == pygame.K_UP and delay < 1.2:
+                        delay = delay * 2
 
                     if event.key == pygame.K_c:
                         currentGen = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
