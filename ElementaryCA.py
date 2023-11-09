@@ -12,7 +12,7 @@ class ElementaryCA:
         self.screen = screen
         self.mainGrid = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
         self.currentRow = 0
-        self.ruleset = "00011110" #30
+        self.ruleset = "11100111" #30
 
 
     def nextGen(self):
@@ -26,8 +26,7 @@ class ElementaryCA:
         self.currentRow += 1
 
         if self.currentRow == self.GRID_HEIGHT // self.CELL_SIZE - 1:
-            nextGen[:-1] = self.mainGrid[1:]
-            self.currentRow -= 1
+            self.currentRow = 0
 
         self.mainGrid = nextGen
     
