@@ -12,7 +12,7 @@ class ElementaryCA:
         self.screen = screen
         self.mainGrid = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
         self.currentRow = 0
-        self.ruleset = "11100111" #30
+        self.ruleset = '00000000'
 
 
     def nextGen(self):
@@ -21,13 +21,9 @@ class ElementaryCA:
 
         for col in range(1, self.GRID_WIDTH // self.CELL_SIZE - 1):
             neighbourhood = str(int(self.mainGrid[self.currentRow][col-1])) + str(int(self.mainGrid[self.currentRow][col])) + str(int(self.mainGrid[self.currentRow][col+1]))
-            nextGen[self.currentRow + 1][col] = ruleset_int[7 - int(neighbourhood, 2)]
+            nextGen[(self.currentRow + 1) % (self.GRID_HEIGHT // self.CELL_SIZE)][col] = ruleset_int[7 - int(neighbourhood, 2)]
 
-        self.currentRow += 1
-
-        if self.currentRow == self.GRID_HEIGHT // self.CELL_SIZE - 1:
-            self.currentRow = 0
-
+        self.currentRow = (self.currentRow + 1) % (self.GRID_HEIGHT // self.CELL_SIZE)
         self.mainGrid = nextGen
     
 
@@ -44,6 +40,7 @@ class ElementaryCA:
     def drawStart(self):
         self.mainGrid = np.zeros((self.GRID_HEIGHT // self.CELL_SIZE, self.GRID_WIDTH // self.CELL_SIZE))
         self.mainGrid[0, self.GRID_WIDTH // self.CELL_SIZE // 2] = 1
+        self.currentRow = 0
 
         for row, col in np.ndindex(self.mainGrid.shape):
             rect = pygame.Rect(col * self.CELL_SIZE, row * self.CELL_SIZE, self.CELL_SIZE, self.CELL_SIZE)
@@ -53,6 +50,37 @@ class ElementaryCA:
                 pygame.draw.rect(self.screen, self.BACKGROUND, rect)
         pygame.display.update()
 
+    def setRuleset(self):
+        font = pygame.font.Font(None, 60)  # The font you're using for the textbox
+        user_text = ''
+        input_rect = pygame.Rect(self.GRID_WIDTH // 2 - 70 // 2, self.GRID_HEIGHT // 2 - 32 // 2, 160, 70)        
+        color = pygame.Color(60, 60, 60)
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        self.ruleset = format(int(user_text), '08b')[-8:]
+                        print(self.ruleset)
+                        return
+                    elif event.key == pygame.K_BACKSPACE:
+                        user_text = user_text[:-1]
+                    else:
+                        if event.unicode.isdigit() and int(user_text + event.unicode) < 256:
+                            user_text += event.unicode
+
+            self.screen.fill(self.BACKGROUND)
+            pygame.draw.rect(self.screen, color, input_rect)
+
+            text_surface = font.render(user_text, True, (255, 255, 255))  
+            self.screen.blit(text_surface, (input_rect.x + 10, input_rect.y + 10))
+
+            input_rect = pygame.Rect(self.GRID_WIDTH // 2 - (72 + 20) // 2, self.GRID_HEIGHT // 2 - (41 + 20) // 2, 72 + 20, 41 +20)
+            pygame.display.update()
 
     def run(self):
         pygame.init()
@@ -60,8 +88,8 @@ class ElementaryCA:
         running = False
         
         pygame.display.set_caption("Elementary Ca")
+        self.setRuleset()
         self.drawStart()
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -75,6 +103,7 @@ class ElementaryCA:
                         running = not running
 
                     if event.key == pygame.K_c:
+                        self.setRuleset()
                         self.drawStart()
     
                     if event.key == pygame.K_DOWN and delay > 0.00125:
