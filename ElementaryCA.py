@@ -63,6 +63,8 @@ class ElementaryCA:
                     exit()
 
                 if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        return False
                     if event.key == pygame.K_RETURN:
                         self.ruleset = format(int(user_text), '08b')[-8:]
                         print(self.ruleset)
@@ -88,7 +90,8 @@ class ElementaryCA:
         running = False
         
         pygame.display.set_caption("Elementary Ca")
-        self.setRuleset()
+        if self.setRuleset() == False:
+            return False
         self.drawStart()
         while True:
             for event in pygame.event.get():
