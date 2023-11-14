@@ -11,6 +11,12 @@ GRID_HEIGHT = 800
 CELL_SIZE = 7
 
 def main():
+    """
+    Initializes Pygame and creates a screen. 
+    Creates instances of GameOfLife and ElementaryCA classes. 
+    Creates instances of Button class for each game and exit button. 
+    Runs the game selected by the user or exits the program. 
+    """
     pygame.init()
     screen = pygame.display.set_mode((GRID_WIDTH, GRID_HEIGHT))
 

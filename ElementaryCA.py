@@ -3,6 +3,28 @@ import pygame
 import time
 
 class ElementaryCA:
+    """
+    A class representing an elementary cellular automaton.
+
+    Attributes:
+    - ALIVE (tuple): RGB color code for live cells.
+    - BACKGROUND (tuple): RGB color code for dead cells.
+    - GRID_WIDTH (int): Width of the grid in pixels.
+    - GRID_HEIGHT (int): Height of the grid in pixels.
+    - CELL_SIZE (int): Size of each cell in pixels.
+    - screen (pygame.Surface): The surface to draw the grid on.
+    - mainGrid (numpy.ndarray): The current state of the grid.
+    - currentRow (int): The current row being updated.
+    - ruleset (str): The ruleset for the cellular automaton.
+
+    Methods:
+    - nextGen(): Updates the grid to the next generation based on the ruleset.
+    - draw(): Draws the current state of the grid on the screen.
+    - drawStart(): Draws the initial state of the grid on the screen.
+    - setRuleset(): Allows the user to set the ruleset for the cellular automaton.
+    - run(): Runs the cellular automaton.
+    """
+class ElementaryCA:
     def __init__(self, ALIVE, BACKGROUND, GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, screen):
         self.ALIVE = ALIVE
         self.BACKGROUND = BACKGROUND
@@ -51,7 +73,7 @@ class ElementaryCA:
         pygame.display.update()
 
     def setRuleset(self):
-        font = pygame.font.Font(None, 60)  # The font you're using for the textbox
+        font = pygame.font.Font(None, 60)
         user_text = ''
         input_rect = pygame.Rect(self.GRID_WIDTH // 2 - 70 // 2, self.GRID_HEIGHT // 2 - 32 // 2, 160, 70)        
         color = pygame.Color(60, 60, 60)

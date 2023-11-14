@@ -1,6 +1,19 @@
 import pygame
 
 class Button():
+	"""
+	A class to represent a button in a Pygame GUI.
+
+	Attributes:
+		x (int): The x-coordinate of the button's center.
+		y (int): The y-coordinate of the button's center.
+		image (str): The filepath to the image to be displayed on the button.
+		image_hover (str): The filepath to the image to be displayed on the button when the mouse hovers over it.
+		clicked (bool): Whether or not the button has been clicked.
+
+	Methods:
+		draw(surface): Draws the button on the given Pygame surface and returns whether or not the button has been clicked.
+	"""
 	def __init__(self, x, y, image, image_hover):
 		self.image = pygame.image.load(image)
 		self.rect = self.image.get_rect()

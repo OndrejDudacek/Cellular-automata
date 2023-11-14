@@ -3,6 +3,23 @@ import numpy as np
 import time
 
 class GameOfLife:
+    """
+    A class representing the Game of Life.
+
+    Attributes:
+    - ALIVE (tuple): A tuple representing the RGB color code for live cells.
+    - BACKGROUND (tuple): A tuple representing the RGB color code for dead cells.
+    - GRID_WIDTH (int): The width of the grid in pixels.
+    - GRID_HEIGHT (int): The height of the grid in pixels.
+    - CELL_SIZE (int): The size of each cell in pixels.
+    - screen (pygame.Surface): The surface to draw the game on.
+
+    Methods:
+    - update(currentGen): Updates the current generation of cells based on the rules of the Game of Life.
+    - draw(currentGen): Draws the current generation of cells on the screen.
+    - run(): Runs the Game of Life.
+    """
+class GameOfLife:
     def __init__(self, ALIVE, BACKGROUND, GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, screen):
         self.ALIVE = ALIVE
         self.BACKGROUND = BACKGROUND
