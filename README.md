@@ -1,6 +1,6 @@
 # About this app
 
-This application is my school project on cellular automata. When I presented it in class I used this presentation I created.
+This application is my school project on cellular automata. When I presented it in class, I used [this](https://www.canva.com/design/DAFzxeilpL4/FSNip4YF2MTZOqsiwSZbDA/edit?utm_content=DAFzxeilpL4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) presentation I made.
 
 # Cellular-automata
 ## What are cellular automata
